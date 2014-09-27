@@ -22,7 +22,7 @@ object BuildSettings {
     javacOptions ++= appJavacOptions,
     startYear := Some(2014),
     incOptions := incOptions.value.withNameHashing(true),
-    parallenExecution in Test := false
+    parallelExecution in Test := false
   )
 }
 
