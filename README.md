@@ -2,7 +2,7 @@
 
 [Apache Velocity](http://velocity.apache.org/)のScala向けラッパーライブラリです。
 
-Scala向けに、以下の拡張を行っています。
+UberspectをScala向け実装して、以下の機能拡張を行っています。
 
 - foreachディレクティブでのScala CollectionやOptionを利用可能に
 - Scalaのpublicなメンバへのプロパティ表記でのアクセスを可能に
