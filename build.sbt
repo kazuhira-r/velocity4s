@@ -8,7 +8,11 @@ val secondaryScalaVersion = "2.10.4"
 
 scalaVersion := primaryScalaVersion
 
+startYear := Some(2014)
+
 organization := "com.github.kazuhira-r"
+
+description := "Apache Velocity Wrapper Library for Scala"
 
 crossScalaVersions := Seq(primaryScalaVersion, secondaryScalaVersion)
 
@@ -22,3 +26,5 @@ libraryDependencies ++= Seq(
   "org.apache.velocity" % "velocity" % "1.7",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test"
 )
+
+licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))

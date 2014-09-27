@@ -1,5 +1,4 @@
-# Velocity4s
-
+# Velocity4s [![Build Status](https://travis-ci.org/kazuhira-r/velocity4s.svg?branch=master)](https://travis-ci.org/kazuhira-r/velocity4s)
 [Apache Velocity](http://velocity.apache.org/)のScala向けラッパーライブラリです。
 
 UberspectをScala向け実装して、以下の機能拡張を行っています。
