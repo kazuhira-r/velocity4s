@@ -22,6 +22,8 @@ javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 
 incOptions := incOptions.value.withNameHashing(true)
 
+parallelExecution in Test := false
+
 libraryDependencies ++= Seq(
   "org.apache.velocity" % "velocity" % "1.7",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test"
