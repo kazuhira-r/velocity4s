@@ -9,9 +9,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
       val templateAsString = """|#foreach ($name in $!names)
                                 |$!name
                                 |#end""".stripMargin
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("names" -> List("Velocity", "Scala"))
 
@@ -22,9 +21,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Scala List apply") {
       val templateAsString = "$!names[1]"
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("names" -> List("Velocity", "Scala"))
 
@@ -33,9 +31,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Scala Map access key") {
       val templateAsString = """$map.key"""
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("map" -> Map("key" -> "Velocity4s"))
 
@@ -45,9 +42,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Scala Map key indexer") {
       val templateAsString = """$map["key"]"""
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("map" -> Map("key" -> "Velocity4s"))
 
@@ -56,9 +52,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Scala Map key indexer nested") {
       val templateAsString = """$map['nested']['key']"""
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("map" -> Map("nested" -> Map("key" -> "Velocity4s")))
 
@@ -67,9 +62,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Scala Map missing key") {
       val templateAsString = """$map['missing']"""
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("map" -> Map("key" -> "value"))
 
@@ -78,9 +72,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Scala Map get") {
       val templateAsString = """$map.get('key')"""
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("map" -> Map("key" -> "Velocity4s"))
 
@@ -91,9 +84,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
       val templateAsString = """|#foreach ($v in $option)
                                 |$v
                                 |#end""".stripMargin
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("option" -> Some("Velocity4s"))
 
@@ -105,9 +97,8 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
       val templateAsString = """|#foreach ($v in $option)
                                 |$v
                                 |#end""".stripMargin
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("option" -> None)
 
