@@ -30,7 +30,7 @@ class ScalaVelocityEngineSpec extends FunSpec {
 
     it(classOf[ScalaPropertiesFileNameVelocityEngine].getSimpleName) {
       val engine =
-        ScalaVelocityEngine.create("src/test/resources/org/apache/velocity/runtime/defaults/velocity4s.properties")
+        ScalaVelocityEngine.create("velocity4s/src/test/resources/org/apache/velocity/runtime/defaults/velocity4s.properties")
       engine.init()
       engine
         .getProperty(RuntimeConstants.UBERSPECT_CLASSNAME)

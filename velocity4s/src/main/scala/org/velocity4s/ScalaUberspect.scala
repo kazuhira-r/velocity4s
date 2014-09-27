@@ -25,7 +25,7 @@ class ScalaUberspect extends UberspectImpl {
       case (_: GenSeqLike[_, _], ScalaUberspect.GET_METHOD_NAME) if args.size == 1 =>
         super.getMethod(obj, "apply", args, i)
       case (_: GenMapLike[_, _, _], ScalaUberspect.GET_METHOD_NAME) if args.size == 1 =>
-        val method = introspector.getMethod(obj.getClass, "get", args)
+        val method = introspector.getMethod(obj.getClass, methodName, args)
         new MapApplyVelMethod(method)
       case _ =>
         super.getMethod(obj, methodName, args, i)

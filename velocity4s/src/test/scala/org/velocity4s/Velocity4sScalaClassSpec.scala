@@ -7,9 +7,8 @@ class Velocity4sScalaClassSpec extends FunSpec with Velocity4sSpecSupport {
   describe("use StringTemplate") {
     it("Case Class") {
       val templateAsString = "Hi, My name is $person.name!, $person.age years old"
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("person" -> CasePerson("Ken", 15))
 
@@ -18,9 +17,8 @@ class Velocity4sScalaClassSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Simple Class") {
       val templateAsString = "Hi, My name is $person.name!, $person.age years old"
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("person" -> new SimplePerson("Ken", 15))
 
@@ -29,9 +27,8 @@ class Velocity4sScalaClassSpec extends FunSpec with Velocity4sSpecSupport {
 
     it("Method Invoke") {
       val templateAsString = "$greeting.say()"
-      val templateName = "template.vm"
 
-      val engine = newSimplyEngine(templateName, templateAsString)
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
       val template = engine.getTemplate(templateName)
       val context = newContext("greeting" -> new Greeting)
 

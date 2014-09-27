@@ -1,6 +1,7 @@
 package org.velocity4s
 
 import java.io.StringWriter
+import java.util.UUID
 
 import org.apache.velocity.{Template, VelocityContext}
 import org.apache.velocity.context.Context
@@ -10,19 +11,20 @@ import org.apache.velocity.runtime.resource.loader.StringResourceLoader
 import org.scalatest.Suite
 
 trait Velocity4sSpecSupport extends Suite {
-  protected def newSimplyEngine(templateName: String, templateAsString: String): ScalaVelocityEngine = {
+  protected def newEngineWithTemplate(templateAsString: String): (ScalaVelocityEngine, String) = {
     val engine = ScalaVelocityEngine.create
     engine.addProperty(RuntimeConstants.RESOURCE_LOADER, "string")
     engine.addProperty("string.resource.loader.class", classOf[StringResourceLoader].getName)
     engine.init()
 
+    val templateName = s"${UUID.randomUUID}.vm"
     StringResourceLoader.getRepository.putStringResource(templateName, templateAsString)
-    engine
+    (engine, templateName)
   }
 
-  protected def newContext(pair: (String, Any)*): Context = {
+  protected def newContext(pairs: (String, Any)*): Context = {
     val context = new VelocityContext
-    pair.foreach { case (k, v) => context.put(k, v) }
+    pairs.foreach { case (k, v) => context.put(k, v) }
     context
   }
 
