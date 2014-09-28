@@ -1,5 +1,7 @@
 package org.velocity4s
 
+import scala.collection.GenMapLike
+
 import org.apache.velocity.runtime.log.Log
 import org.apache.velocity.runtime.parser.node.MapGetExecutor
 import org.apache.velocity.util.introspection.Introspector
@@ -10,6 +12,6 @@ class ScalaMapGetExecutor(log: Log, clazz: Class[_], property: String)
     true
 
   override def execute(o: AnyRef): AnyRef = {
-    o.asInstanceOf[Map[String, AnyRef]].getOrElse(property, null)
+    o.asInstanceOf[GenMapLike[String, AnyRef, _]].getOrElse(property, null)
   }
 }
