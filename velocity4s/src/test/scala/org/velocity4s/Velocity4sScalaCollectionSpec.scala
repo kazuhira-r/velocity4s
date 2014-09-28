@@ -41,7 +41,22 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
       val context = newContext("map" -> Map("key" -> "Velocity4s"))
 
-      merge(template, context) should be ("""|(key,Velocity4s)
+      merge(template, context) should be ("""|Velocity4s
+                                             |""".stripMargin)
+
+    }
+
+    it("Scala Map foreach keys") {
+      val templateAsString = """|#foreach ($k in $!map.keys())
+                                |$!k
+                                |#end""".stripMargin
+
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
+      val template = engine.getTemplate(templateName)
+
+      val context = newContext("map" -> Map("key" -> "Velocity4s"))
+
+      merge(template, context) should be ("""|key
                                              |""".stripMargin)
 
     }
@@ -157,7 +172,7 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
       val context = newContext("map" -> mutable.Map("key" -> "Velocity4s"))
 
-      merge(template, context) should be ("""|(key,Velocity4s)
+      merge(template, context) should be ("""|Velocity4s
                                              |""".stripMargin)
 
     }
