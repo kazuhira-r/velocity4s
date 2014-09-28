@@ -15,6 +15,7 @@ class ScalaUberspect extends UberspectImpl {
   override def getIterator(obj: Object, i: Info): java.util.Iterator[_] =
     obj match {
       case option: Option[_] => option.iterator.asJava
+      case mapLike: GenMapLike[_, _, _] => mapLike.values.iterator.asJava
       case iterable: Iterable[_] => iterable.iterator.asJava
       case iterator: Iterator[_] => iterator.asJava
       case _ => super.getIterator(obj, i)
@@ -34,7 +35,7 @@ class ScalaUberspect extends UberspectImpl {
   override def getPropertyGet(obj: AnyRef, identifier: String, i: Info): VelPropertyGet = {
     Option(obj)
       .map {
-        case map: Map[_, _] => new ScalaMapGetExecutor(log, obj.getClass, identifier)
+        case map: GenMapLike[_, _, _] => new ScalaMapGetExecutor(log, obj.getClass, identifier)
         case _ => new ScalaPropertyExecutor(log, introspector, obj.getClass, identifier)
       }.map { executor =>
         if (executor.isAlive)
@@ -42,24 +43,5 @@ class ScalaUberspect extends UberspectImpl {
         else
           super.getPropertyGet(obj, identifier, i)
       }.getOrElse(null)
-  }
-}
-
-private[velocity4s] class MapApplyVelMethod(method: Method) extends VelMethod {
-  override def getMethodName: String =
-    method.getName
-
-  override def getReturnType: Class[_] =
-    method.getReturnType
-
-  override def isCacheable: Boolean =
-    true
-
-  override def invoke(o: AnyRef, params: Array[AnyRef]): AnyRef = {
-    method.invoke(o, params(0)) match {
-      case None => null
-      case Some(v) => v.asInstanceOf[AnyRef]
-      case r => r
-    }
   }
 }
