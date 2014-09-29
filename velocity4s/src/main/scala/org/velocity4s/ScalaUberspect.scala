@@ -15,7 +15,7 @@ class ScalaUberspect extends UberspectImpl {
   override def getIterator(obj: Object, i: Info): java.util.Iterator[_] =
     obj match {
       case option: Option[_] => option.iterator.asJava
-      case mapLike: GenMapLike[_, _, _] => mapLike.values.iterator.asJava
+      case map: GenMapLike[_, _, _] => map.values.iterator.asJava
       case iterable: Iterable[_] => iterable.iterator.asJava
       case iterator: Iterator[_] => iterator.asJava
       case _ => super.getIterator(obj, i)

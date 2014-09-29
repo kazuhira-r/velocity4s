@@ -32,7 +32,7 @@ object Dependencies {
   )
 
   val testLibraries = Seq(
-  "org.scalatest" %% "scalatest" % "2.2.1" % "test"
+    "org.scalatest" %% "scalatest" % "2.2.1" % "test"
   )
 }
 
