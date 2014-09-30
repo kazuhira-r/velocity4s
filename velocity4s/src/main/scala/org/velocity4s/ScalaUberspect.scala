@@ -32,16 +32,17 @@ class ScalaUberspect extends UberspectImpl {
         super.getMethod(obj, methodName, args, i)
     }
 
-  override def getPropertyGet(obj: AnyRef, identifier: String, i: Info): VelPropertyGet = {
+  override def getPropertyGet(obj: AnyRef, identifier: String, i: Info): VelPropertyGet =
     Option(obj)
       .map {
-        case map: GenMapLike[_, _, _] => new ScalaMapGetExecutor(log, obj.getClass, identifier)
-        case _ => new ScalaPropertyExecutor(log, introspector, obj.getClass, identifier)
+        case map: GenMapLike[_, _, _] =>
+          new ScalaMapGetExecutor(log, introspector, obj.getClass, identifier)
+        case _ =>
+          new ScalaPropertyExecutor(log, introspector, obj.getClass, identifier)
       }.map { executor =>
         if (executor.isAlive)
           new UberspectImpl.VelGetterImpl(executor)
         else
           super.getPropertyGet(obj, identifier, i)
       }.getOrElse(null)
-  }
 }
