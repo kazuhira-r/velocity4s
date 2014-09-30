@@ -70,31 +70,46 @@ class ScalaUberspectSpec extends FunSpec {
     it("List to VelMethod") {
       val uberspect = new ScalaUberspect
       uberspect.init()
-      uberspect.getMethod(List(1, 2, 3), "get", Array(new Integer(1)), dummyInfo) should be (a [UberspectImpl.VelMethodImpl])
+      uberspect.getMethod(List(1, 2, 3),
+                          "get",
+                          Array(new Integer(1)),
+                          dummyInfo) should be (a [UberspectImpl.VelMethodImpl])
     }
 
     it("Map to VelMethod") {
       val uberspect = new ScalaUberspect
       uberspect.init()
-      uberspect.getMethod(Map("key" -> "value"), "get", Array("key"), dummyInfo) should be (a [MapApplyVelMethod])
+      uberspect.getMethod(Map("key" -> "value"),
+                          "get",
+                          Array("key"),
+                          dummyInfo) should be (a [MapApplyVelMethod])
     }
 
     it("Map to no VelMethod(not get method)") {
       val uberspect = new ScalaUberspect
       uberspect.init()
-      uberspect.getMethod(Map("key" -> "value"), "apply", Array("key"), dummyInfo) should not be (a [MapApplyVelMethod])
+      uberspect.getMethod(Map("key" -> "value"),
+                          "apply",
+                          Array("key"),
+                          dummyInfo) should not be (a [MapApplyVelMethod])
     }
 
     it("mutable.ArrayBuffer to VelMethod") {
       val uberspect = new ScalaUberspect
       uberspect.init()
-      uberspect.getMethod(mutable.ArrayBuffer(1, 2, 3), "get", Array(new Integer(1)), dummyInfo) should be (a [UberspectImpl.VelMethodImpl])
+      uberspect.getMethod(mutable.ArrayBuffer(1, 2, 3),
+                          "get",
+                          Array(new Integer(1)),
+                          dummyInfo) should be (a [UberspectImpl.VelMethodImpl])
     }
 
     it("mutable.Map to VelMethod") {
       val uberspect = new ScalaUberspect
       uberspect.init()
-      uberspect.getMethod(mutable.Map("key" -> "value"), "get", Array("key"), dummyInfo) should be (a [MapApplyVelMethod])
+      uberspect.getMethod(mutable.Map("key" -> "value"),
+                          "get",
+                          Array("key"),
+                          dummyInfo) should be (a [MapApplyVelMethod])
     }
   }
 }
