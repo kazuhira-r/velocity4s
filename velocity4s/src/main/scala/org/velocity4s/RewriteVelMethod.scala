@@ -4,8 +4,7 @@ import java.lang.reflect.Method
 
 import org.apache.velocity.util.introspection.VelMethod
 
-
-private[velocity4s] class MapApplyVelMethod(method: Method) extends VelMethod {
+private[velocity4s] class RewriteVelMethod(method: Method, fun: (AnyRef, Array[AnyRef]) => AnyRef) extends VelMethod {
   override def getMethodName: String =
     method.getName
 
@@ -15,11 +14,6 @@ private[velocity4s] class MapApplyVelMethod(method: Method) extends VelMethod {
   override def isCacheable: Boolean =
     true
 
-  override def invoke(o: AnyRef, params: Array[AnyRef]): AnyRef = {
-    method.invoke(o, params(0)) match {
-      case None => null
-      case Some(v) => v.asInstanceOf[AnyRef]
-      case r => r
-    }
-  }
+  override def invoke(o: AnyRef, params: Array[AnyRef]): AnyRef =
+    fun(o, params)
 }

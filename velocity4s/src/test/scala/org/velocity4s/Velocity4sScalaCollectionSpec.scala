@@ -136,7 +136,46 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
 
       merge(template, context) should be (empty)
     }
-  }
+
+    it("Scala Option Some get") {
+      val templateAsString = "$option.get"
+
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
+      val template = engine.getTemplate(templateName)
+      val context = newContext("option" -> Some("Velocity4s"))
+
+      merge(template, context) should be ("Velocity4s")
+    }
+
+    it("Scala Option Some get with parentheses") {
+      val templateAsString = "$option.get()"
+
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
+      val template = engine.getTemplate(templateName)
+      val context = newContext("option" -> Some("Velocity4s"))
+
+      merge(template, context) should be ("Velocity4s")
+    }
+
+    it("Scala Option None get") {
+      val templateAsString = "$option.get"
+
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
+      val template = engine.getTemplate(templateName)
+      val context = newContext("option" -> None)
+
+      merge(template, context) should be ("$option.get")
+    }
+
+    it("Scala Option None get with parentheses") {
+      val templateAsString = "$option.get()"
+
+      val (engine, templateName) = newEngineWithTemplate(templateAsString)
+      val template = engine.getTemplate(templateName)
+      val context = newContext("option" -> None)
+
+      merge(template, context) should be ("$option.get()")
+    }
 
     it("Scala mutable.ArrayBuffer foreach") {
       val templateAsString = """|#foreach ($name in $!names)
@@ -187,5 +226,5 @@ class Velocity4sScalaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
       merge(template, context) should be ("Velocity4s")
 
     }
-
+  }
 }
