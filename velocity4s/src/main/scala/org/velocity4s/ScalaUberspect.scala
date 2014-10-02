@@ -23,11 +23,26 @@ class ScalaUberspect extends UberspectImpl {
 
   override def getMethod(obj: AnyRef, methodName: String, args: Array[AnyRef], i: Info): VelMethod =
     (obj, methodName) match {
+      case (_: Option[_], ScalaUberspect.GET_METHOD_NAME) if args.size == 0 =>
+        val method = introspector.getMethod(obj.getClass, methodName, args)
+
+        if (method != null)
+          new RewriteVelMethod(method, (o, params) => {
+            o.asInstanceOf[Option[AnyRef]].getOrElse(null)
+          })
+        else
+          super.getMethod(obj, methodName, args, i)
       case (_: GenSeqLike[_, _], ScalaUberspect.GET_METHOD_NAME) if args.size == 1 =>
         super.getMethod(obj, "apply", args, i)
       case (_: GenMapLike[_, _, _], ScalaUberspect.GET_METHOD_NAME) if args.size == 1 =>
         val method = introspector.getMethod(obj.getClass, methodName, args)
-        new MapApplyVelMethod(method)
+
+        if (method != null)
+          new RewriteVelMethod(method, (o, params) => {
+            o.asInstanceOf[GenMapLike[AnyRef, AnyRef, _]].getOrElse(params(0), null)
+          })
+        else
+          super.getMethod(obj, methodName, args, i)
       case _ =>
         super.getMethod(obj, methodName, args, i)
     }
@@ -35,6 +50,8 @@ class ScalaUberspect extends UberspectImpl {
   override def getPropertyGet(obj: AnyRef, identifier: String, i: Info): VelPropertyGet =
     Option(obj)
       .map {
+        case option: Option[_] if identifier == ScalaUberspect.GET_METHOD_NAME =>
+          new ScalaOptionGetExecutor(log, introspector, obj.getClass, identifier)
         case map: GenMapLike[_, _, _] =>
           new ScalaMapGetExecutor(log, introspector, obj.getClass, identifier)
         case _ =>

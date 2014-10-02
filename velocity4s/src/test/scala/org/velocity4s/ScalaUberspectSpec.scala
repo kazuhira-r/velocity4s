@@ -82,7 +82,7 @@ class ScalaUberspectSpec extends FunSpec {
       uberspect.getMethod(Map("key" -> "value"),
                           "get",
                           Array("key"),
-                          dummyInfo) should be (a [MapApplyVelMethod])
+                          dummyInfo) should be (a [RewriteVelMethod])
     }
 
     it("Map to no VelMethod(not get method)") {
@@ -91,7 +91,7 @@ class ScalaUberspectSpec extends FunSpec {
       uberspect.getMethod(Map("key" -> "value"),
                           "apply",
                           Array("key"),
-                          dummyInfo) should not be (a [MapApplyVelMethod])
+                          dummyInfo) should not be (a [RewriteVelMethod])
     }
 
     it("mutable.ArrayBuffer to VelMethod") {
@@ -109,7 +109,7 @@ class ScalaUberspectSpec extends FunSpec {
       uberspect.getMethod(mutable.Map("key" -> "value"),
                           "get",
                           Array("key"),
-                          dummyInfo) should be (a [MapApplyVelMethod])
+                          dummyInfo) should be (a [RewriteVelMethod])
     }
   }
 }
