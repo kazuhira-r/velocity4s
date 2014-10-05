@@ -3,7 +3,7 @@ package org.velocity4s
 import java.io.StringWriter
 import java.util.UUID
 
-import org.apache.velocity.{Template, VelocityContext}
+import org.apache.velocity.{ Template, VelocityContext }
 import org.apache.velocity.context.Context
 import org.apache.velocity.runtime.RuntimeConstants
 import org.apache.velocity.runtime.resource.loader.StringResourceLoader

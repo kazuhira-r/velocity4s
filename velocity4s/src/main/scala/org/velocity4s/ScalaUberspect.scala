@@ -1,11 +1,11 @@
 package org.velocity4s
 
-import scala.collection.{GenMapLike, GenSeqLike}
+import scala.collection.{ GenMapLike, GenSeqLike }
 import scala.collection.JavaConverters._
 
 import java.lang.reflect.Method
 
-import org.apache.velocity.util.introspection.{Info, UberspectImpl, VelMethod, VelPropertyGet}
+import org.apache.velocity.util.introspection.{ Info, UberspectImpl, VelMethod, VelPropertyGet }
 
 object ScalaUberspect {
   private val GET_METHOD_NAME = "get"
@@ -14,11 +14,11 @@ object ScalaUberspect {
 class ScalaUberspect extends UberspectImpl {
   override def getIterator(obj: Object, i: Info): java.util.Iterator[_] =
     obj match {
-      case option: Option[_] => option.iterator.asJava
+      case option: Option[_]        => option.iterator.asJava
       case map: GenMapLike[_, _, _] => map.values.iterator.asJava
-      case iterable: Iterable[_] => iterable.iterator.asJava
-      case iterator: Iterator[_] => iterator.asJava
-      case _ => super.getIterator(obj, i)
+      case iterable: Iterable[_]    => iterable.iterator.asJava
+      case iterator: Iterator[_]    => iterator.asJava
+      case _                        => super.getIterator(obj, i)
     }
 
   override def getMethod(obj: AnyRef, methodName: String, args: Array[AnyRef], i: Info): VelMethod =
