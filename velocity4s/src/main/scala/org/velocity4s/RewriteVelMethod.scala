@@ -4,7 +4,7 @@ import java.lang.reflect.Method
 
 import org.apache.velocity.util.introspection.VelMethod
 
-private[velocity4s] class RewriteVelMethod(method: Method, fun: (AnyRef, Array[AnyRef]) => AnyRef) extends VelMethod {
+class RewriteVelMethod(method: Method, fun: (AnyRef, Array[AnyRef]) => AnyRef) extends VelMethod {
   override def getMethodName: String =
     method.getName
 
