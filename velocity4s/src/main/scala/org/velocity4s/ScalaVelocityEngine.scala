@@ -29,14 +29,14 @@ object ScalaVelocityEngine {
 trait ScalaVelocityEngine extends VelocityEngine
 
 private[velocity4s] class ScalaSimplyVelocityEngine extends VelocityEngine
-                                                    with ScalaVelocityEngine {
+    with ScalaVelocityEngine {
   addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
 }
 
 private[velocity4s] class ScalaPropertiesVelocityEngine(p: java.util.Properties) extends VelocityEngine(p)
-                                                                                 with ScalaVelocityEngine
+  with ScalaVelocityEngine
 
 private[velocity4s] class ScalaPropertiesFileNameVelocityEngine(propsFilename: String) extends VelocityEngine(propsFilename)
-                                                                                       with ScalaVelocityEngine {
+    with ScalaVelocityEngine {
   addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
 }

@@ -7,7 +7,7 @@ import org.apache.velocity.runtime.parser.node.MapGetExecutor
 import org.apache.velocity.util.introspection.Introspector
 
 class ScalaMapGetExecutor(log: Log, introspector: Introspector, clazz: Class[_], property: String)
-  extends MapGetExecutor(log, clazz, property) {
+    extends MapGetExecutor(log, clazz, property) {
 
   override def isAlive: Boolean =
     true
