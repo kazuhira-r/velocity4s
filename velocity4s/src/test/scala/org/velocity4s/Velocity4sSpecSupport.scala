@@ -1,7 +1,6 @@
 package org.velocity4s
 
 import java.io.{ StringReader, StringWriter }
-import java.util.UUID
 
 import org.apache.velocity.VelocityContext
 
