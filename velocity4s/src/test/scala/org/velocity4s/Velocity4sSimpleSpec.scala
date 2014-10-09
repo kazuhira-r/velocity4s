@@ -7,12 +7,9 @@ class Velocity4sSimpleSpec extends FunSpec with Velocity4sSpecSupport {
   describe("use StringTemplate") {
     it("simple") {
       val templateAsString = "Hello ${name}!!"
+      val params = "name" -> "Velocity4s"
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-      val context = newContext("name" -> "Velocity4s")
-
-      merge(template, context) should be ("Hello Velocity4s!!")
+      eval(templateAsString, params) should be ("Hello Velocity4s!!")
     }
   }
 }

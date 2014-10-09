@@ -9,34 +9,27 @@ class Velocity4sJavaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
       val templateAsString = """|#foreach ($name in $!names)
                                 |$!name
                                 |#end""".stripMargin
-
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-
       val list = new java.util.ArrayList[String]
       list.add("Velocity")
       list.add("Scala")
 
-      val context = newContext("names" -> list)
+      val params = "names" -> list
 
-      merge(template, context) should be ("""|Velocity
-                                             |Scala
-                                             |""".stripMargin)
+      eval(templateAsString, params) should be ("""|Velocity
+                                                   |Scala
+                                                   |""".stripMargin)
     }
 
     it("Java List get") {
       val templateAsString = "$!names[1]"
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-
       val list = new java.util.ArrayList[String]
       list.add("Velocity")
       list.add("Scala")
 
-      val context = newContext("names" -> list)
+      val params = "names" -> list
 
-      merge(template, context) should be ("Scala")
+      eval(templateAsString, params) should be ("Scala")
     }
 
     it("Java Map foreach") {
@@ -44,33 +37,24 @@ class Velocity4sJavaCollectionSpec extends FunSpec with Velocity4sSpecSupport {
                                 |$!e
                                 |#end""".stripMargin
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-
       val map = new java.util.HashMap[String, String]
       map.put("key", "Velocity4s")
 
-      val context = newContext("map" -> map)
+      val params = "map" -> map
 
-      merge(template, context) should be ("""|Velocity4s
-                                             |""".stripMargin)
-
+      eval(templateAsString, params) should be ("""|Velocity4s
+                                                    |""".stripMargin)
     }
 
     it("Java Map access key") {
       val templateAsString = """$map.key"""
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-
       val map = new java.util.HashMap[String, String]
       map.put("key", "Velocity4s")
 
-      val context = newContext("map" -> map)
+      val params = "map" -> map
 
-      merge(template, context) should be ("Velocity4s")
-
+      eval(templateAsString, params) should be ("Velocity4s")
     }
-
   }
 }

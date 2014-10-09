@@ -21,8 +21,7 @@ object BuildSettings {
     scalacOptions ++= appScalacOptions,
     javacOptions ++= appJavacOptions,
     startYear := Some(2014),
-    incOptions := incOptions.value.withNameHashing(true),
-    parallelExecution in Test := false
+    incOptions := incOptions.value.withNameHashing(true)
   )
 }
 
