@@ -7,62 +7,44 @@ class Velocity4sScalaClassSpec extends FunSpec with Velocity4sSpecSupport {
   describe("use StringTemplate") {
     it("Case Class") {
       val templateAsString = "Hi, My name is $person.name!, $person.age years old"
+      val params = "person" -> CasePerson("Ken", 15)
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-      val context = newContext("person" -> CasePerson("Ken", 15))
-
-      merge(template, context) should be ("Hi, My name is Ken!, 15 years old")
+      eval(templateAsString, params) should be ("Hi, My name is Ken!, 15 years old")
     }
 
     it("Simple Class") {
       val templateAsString = "Hi, My name is $person.name!, $person.age years old"
+      val params = "person" -> new SimplePerson("Ken", 15)
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-      val context = newContext("person" -> new SimplePerson("Ken", 15))
-
-      merge(template, context) should be ("Hi, My name is Ken!, 15 years old")
+      eval(templateAsString, params) should be ("Hi, My name is Ken!, 15 years old")
     }
 
     it("Simple Class2") {
       val templateAsString = "Hi, My name is $person.name!, $person.age years old"
+      val params = "person" -> new SimplePerson2
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-      val context = newContext("person" -> new SimplePerson2)
-
-      merge(template, context) should be ("Hi, My name is Taro!, 20 years old")
+      eval(templateAsString, params) should be ("Hi, My name is Taro!, 20 years old")
     }
 
     it("Method Invoke with parentheses") {
       val templateAsString = "$greeting.say()"
+      val params = "greeting" -> new Greeting
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-      val context = newContext("greeting" -> new Greeting)
-
-      merge(template, context) should be ("Hello Velocity4s")
+      eval(templateAsString, params) should be ("Hello Velocity4s")
     }
 
     it("Method Invoke no parentheses") {
       val templateAsString = "$greeting.say"
+      val params = "greeting" -> new Greeting
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-      val context = newContext("greeting" -> new Greeting)
-
-      merge(template, context) should be ("Hello Velocity4s")
+      eval(templateAsString, params) should be ("Hello Velocity4s")
     }
 
     it("Method Invoke with argument") {
       val templateAsString = "$greeting.say('Velocity')"
+      val params = "greeting" -> new Greeting
 
-      val (engine, templateName) = newEngineWithTemplate(templateAsString)
-      val template = engine.getTemplate(templateName)
-      val context = newContext("greeting" -> new Greeting)
-
-      merge(template, context) should be ("Hello Velocity")
+      eval(templateAsString, params) should be ("Hello Velocity")
     }
   }
 }
