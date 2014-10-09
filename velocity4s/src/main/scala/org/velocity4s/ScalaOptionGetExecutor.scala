@@ -16,8 +16,9 @@ class ScalaOptionGetExecutor(log: Log, introspector: Introspector, clazz: Class[
   }
 
   override def execute(o: AnyRef): AnyRef =
-    if (isAlive)
+    if (isAlive) {
       o.asInstanceOf[Option[AnyRef]].getOrElse(null)
-    else
+    } else {
       null
+    }
 }
