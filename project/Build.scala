@@ -47,7 +47,7 @@ object Dependencies {
 
   val testLibraries = Seq(
     "org.scalatest" %% "scalatest" % "2.2.2" % "test",
-    "org.scalamock" %% "scalamock-scalatest-support" % "3.1.4" % "test"
+    "org.mockito" % "mockito-core" % "1.10.8" % "test"
   )
 }
 
@@ -59,7 +59,7 @@ object Velocity4s extends Build {
     Project("velocity4s-parent",
             file("."),
             settings = appSettings
-    ).aggregate(velocity4s, velocity4sSlf4j, examples)
+    ).aggregate(velocity4s, velocity4sSlf4j, velocity4sJBossLogging)
 
   lazy val velocity4s =
     Project("velocity4s",
@@ -81,11 +81,22 @@ object Velocity4s extends Build {
               ++ appDependencyGraphSettings
     ).dependsOn(velocity4s)
 
+  lazy val velocity4sJBossLogging =
+    Project("velocity4s-jboss-logging",
+            file("velocity4s-jboss-logging"),
+            settings = appSettings
+                      ++ Seq(libraryDependencies ++= compileLibraries ++ Seq(
+                        "org.jboss.logging" % "jboss-logging" % "3.1.4.GA"
+                      ) ++ testLibraries)
+              ++ appScalariformSettings
+              ++ appDependencyGraphSettings
+    ).dependsOn(velocity4s)
+
   lazy val examples =
     Project("examples",
             file("examples"),
             settings = appSettings
               ++ appScalariformSettings
               ++ appDependencyGraphSettings
-    ).dependsOn(velocity4s, velocity4sSlf4j)
+    ).dependsOn(velocity4s)
 }
