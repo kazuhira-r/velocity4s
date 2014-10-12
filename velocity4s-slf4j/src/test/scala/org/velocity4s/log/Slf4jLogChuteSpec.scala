@@ -17,11 +17,11 @@ class Slf4jLogChuteSpec extends FunSpec with MockFactory {
         logger = mockLogger
       }
 
-      (mockLogger.debug(_: String)).expects("debug message")
-      (mockLogger.trace(_: String)).expects("trace message")
-      (mockLogger.info(_: String)).expects("info message")
-      (mockLogger.warn(_: String)).expects("warn message")
-      (mockLogger.error(_: String)).expects("error message")
+      (mockLogger.debug(_: String)) expects ("debug message")
+      (mockLogger.trace(_: String)) expects ("trace message")
+      (mockLogger.info(_: String)) expects ("info message")
+      (mockLogger.warn(_: String)) expects ("warn message")
+      (mockLogger.error(_: String)) expects ("error message")
 
       slf4jLogChute.log(LogChute.DEBUG_ID, "debug message")
       slf4jLogChute.log(LogChute.TRACE_ID, "trace message")
@@ -39,11 +39,11 @@ class Slf4jLogChuteSpec extends FunSpec with MockFactory {
 
       val th = new Throwable
 
-      (mockLogger.debug(_: String, _: Throwable)).expects("debug message", th)
-      (mockLogger.trace(_: String, _: Throwable)).expects("trace message", th)
-      (mockLogger.info(_: String, _: Throwable)).expects("info message", th)
-      (mockLogger.warn(_: String, _: Throwable)).expects("warn message", th)
-      (mockLogger.error(_: String, _: Throwable)).expects("error message", th)
+      (mockLogger.debug(_: String, _: Throwable)) expects ("debug message", th)
+      (mockLogger.trace(_: String, _: Throwable)) expects ("trace message", th)
+      (mockLogger.info(_: String, _: Throwable)) expects ("info message", th)
+      (mockLogger.warn(_: String, _: Throwable)) expects ("warn message", th)
+      (mockLogger.error(_: String, _: Throwable)) expects ("error message", th)
 
       slf4jLogChute.log(LogChute.DEBUG_ID, "debug message", th)
       slf4jLogChute.log(LogChute.TRACE_ID, "trace message", th)
