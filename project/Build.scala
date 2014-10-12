@@ -59,8 +59,6 @@ object Velocity4s extends Build {
     Project("velocity4s-parent",
             file("."),
             settings = appSettings
-              ++ appScalariformSettings
-              ++ appDependencyGraphSettings
     ).aggregate(velocity4s, velocity4sSlf4j, examples)
 
   lazy val velocity4s =
@@ -88,7 +86,6 @@ object Velocity4s extends Build {
             file("examples"),
             settings = appSettings
               ++ appScalariformSettings
-              ++ appDependencyGraphSettings
               ++ appDependencyGraphSettings
     ).dependsOn(velocity4s, velocity4sSlf4j)
 }
