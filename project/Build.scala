@@ -59,7 +59,7 @@ object Velocity4s extends Build {
     Project("velocity4s-parent",
             file("."),
             settings = appSettings
-    ).aggregate(velocity4s, velocity4sSlf4j, velocity4sJbossLogging)
+    ).aggregate(velocity4s, velocity4sSlf4j, velocity4sJBossLogging)
 
   lazy val velocity4s =
     Project("velocity4s",
@@ -81,7 +81,7 @@ object Velocity4s extends Build {
               ++ appDependencyGraphSettings
     ).dependsOn(velocity4s)
 
-  lazy val velocity4sJbossLogging =
+  lazy val velocity4sJBossLogging =
     Project("velocity4s-jboss-logging",
             file("velocity4s-jboss-logging"),
             settings = appSettings
