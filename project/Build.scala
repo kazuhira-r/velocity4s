@@ -31,7 +31,8 @@ object Dependencies {
   )
 
   val testLibraries = Seq(
-    "org.scalatest" %% "scalatest" % "2.2.2" % "test"
+    "org.scalatest" %% "scalatest" % "2.2.2" % "test",
+    "org.scalamock" %% "scalamock-scalatest-support" % "3.1.4" % "test"
   )
 }
 
@@ -42,8 +43,8 @@ object Velocity4s extends Build {
   lazy val root =
     Project("velocity4s-parent",
             file("."),
-            settings = appSettings)
-              .aggregate(velocity4s, examples)
+            settings = appSettings
+    ).aggregate(velocity4s, velocity4sSlf4j, examples)
 
   lazy val velocity4s =
     Project("velocity4s",
@@ -51,8 +52,18 @@ object Velocity4s extends Build {
             settings = appSettings
                       ++ Seq(libraryDependencies ++= compileLibraries ++ testLibraries))
 
+  lazy val velocity4sSlf4j =
+    Project("velocity4s-slf4j",
+            file("velocity4s-slf4j"),
+            settings = appSettings
+                      ++ Seq(libraryDependencies ++= compileLibraries ++ Seq(
+                        "org.slf4j" % "slf4j-api" % "1.7.7"
+                      ) ++ testLibraries)
+    ).dependsOn(velocity4s)
+
   lazy val examples =
     Project("examples",
             file("examples"),
-            settings = appSettings).dependsOn(velocity4s)
+            settings = appSettings
+    ).dependsOn(velocity4s, velocity4sSlf4j)
 }
