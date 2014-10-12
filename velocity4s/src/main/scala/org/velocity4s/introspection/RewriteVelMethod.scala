@@ -1,4 +1,4 @@
-package org.velocity4s
+package org.velocity4s.introspection
 
 import java.lang.reflect.Method
 

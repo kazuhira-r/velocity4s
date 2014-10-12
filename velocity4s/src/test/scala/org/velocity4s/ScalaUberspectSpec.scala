@@ -2,6 +2,8 @@ package org.velocity4s
 
 import scala.collection._
 
+import org.velocity4s.introspection.RewriteVelMethod
+
 import org.apache.velocity.util.introspection.{ Info, VelMethod }
 import org.apache.velocity.util.introspection.UberspectImpl
 

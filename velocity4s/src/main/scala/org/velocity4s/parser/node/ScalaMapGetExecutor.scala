@@ -1,4 +1,4 @@
-package org.velocity4s
+package org.velocity4s.parser.node
 
 import scala.collection.GenMapLike
 
