@@ -1,6 +1,10 @@
 import sbt._
 import sbt.Keys._
 
+import com.typesafe.sbt.SbtScalariform
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
+import scalariform.formatter.preferences._
+
 object BuildSettings {
   val appOrganization = "com.github.kazuhira-r"
   val appVersion = "0.0.1-SNAPSHOT"
@@ -23,6 +27,15 @@ object BuildSettings {
     startYear := Some(2014),
     incOptions := incOptions.value.withNameHashing(true)
   )
+
+  val appScalariformSettings =
+    SbtScalariform.scalariformSettings ++
+      Seq(ScalariformKeys.preferences := ScalariformKeys.preferences.value
+        .setPreference(AlignParameters, true)
+        .setPreference(AlignSingleLineCaseStatements, true)
+        .setPreference(DoubleIndentClassDeclaration, true)
+        .setPreference(PreserveSpaceBeforeArguments, true)
+      )
 }
 
 object Dependencies {
@@ -44,13 +57,16 @@ object Velocity4s extends Build {
     Project("velocity4s-parent",
             file("."),
             settings = appSettings
+              ++ appScalariformSettings
     ).aggregate(velocity4s, velocity4sSlf4j, examples)
 
   lazy val velocity4s =
     Project("velocity4s",
             file("velocity4s"),
             settings = appSettings
-                      ++ Seq(libraryDependencies ++= compileLibraries ++ testLibraries))
+              ++ Seq(libraryDependencies ++= compileLibraries ++ testLibraries)
+              ++ appScalariformSettings
+    )
 
   lazy val velocity4sSlf4j =
     Project("velocity4s-slf4j",
@@ -59,11 +75,13 @@ object Velocity4s extends Build {
                       ++ Seq(libraryDependencies ++= compileLibraries ++ Seq(
                         "org.slf4j" % "slf4j-api" % "1.7.7"
                       ) ++ testLibraries)
+              ++ appScalariformSettings
     ).dependsOn(velocity4s)
 
   lazy val examples =
     Project("examples",
             file("examples"),
             settings = appSettings
+              ++ appScalariformSettings
     ).dependsOn(velocity4s, velocity4sSlf4j)
 }
