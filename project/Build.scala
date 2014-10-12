@@ -28,6 +28,8 @@ object BuildSettings {
     incOptions := incOptions.value.withNameHashing(true)
   )
 
+  val appDependencyGraphSettings = net.virtualvoid.sbt.graph.Plugin.graphSettings
+
   val appScalariformSettings =
     SbtScalariform.scalariformSettings ++
       Seq(ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -58,6 +60,7 @@ object Velocity4s extends Build {
             file("."),
             settings = appSettings
               ++ appScalariformSettings
+              ++ appDependencyGraphSettings
     ).aggregate(velocity4s, velocity4sSlf4j, examples)
 
   lazy val velocity4s =
@@ -66,6 +69,7 @@ object Velocity4s extends Build {
             settings = appSettings
               ++ Seq(libraryDependencies ++= compileLibraries ++ testLibraries)
               ++ appScalariformSettings
+              ++ appDependencyGraphSettings
     )
 
   lazy val velocity4sSlf4j =
@@ -76,6 +80,7 @@ object Velocity4s extends Build {
                         "org.slf4j" % "slf4j-api" % "1.7.7"
                       ) ++ testLibraries)
               ++ appScalariformSettings
+              ++ appDependencyGraphSettings
     ).dependsOn(velocity4s)
 
   lazy val examples =
@@ -83,5 +88,7 @@ object Velocity4s extends Build {
             file("examples"),
             settings = appSettings
               ++ appScalariformSettings
+              ++ appDependencyGraphSettings
+              ++ appDependencyGraphSettings
     ).dependsOn(velocity4s, velocity4sSlf4j)
 }
