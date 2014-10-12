@@ -1,4 +1,4 @@
-package org.velocity4s
+package org.velocity4s.parser.node
 
 import org.apache.velocity.runtime.log.Log
 import org.apache.velocity.runtime.parser.node.PropertyExecutor
