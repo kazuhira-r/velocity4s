@@ -8,7 +8,7 @@ import org.scalatest.FunSpec
 import org.scalatest.Matchers._
 
 class ScalaVelocityEngineSpec extends FunSpec {
-  describe(s"Add ${classOf[ScalaUberspect]} Spec") {
+  describe(s"Add ScalaUberspect Spec") {
     it(classOf[ScalaSimplyVelocityEngine].getSimpleName) {
       val engine = ScalaVelocityEngine.create
       engine.init()
