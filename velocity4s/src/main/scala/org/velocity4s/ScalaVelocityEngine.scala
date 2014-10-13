@@ -1,5 +1,7 @@
 package org.velocity4s
 
+import scala.collection.JavaConverters._
+
 import org.apache.velocity.app.VelocityEngine
 import org.apache.velocity.runtime.RuntimeConstants
 
@@ -14,26 +16,31 @@ object ScalaVelocityEngine {
     new ScalaPropertiesFileNameVelocityEngine(propertiesFileName)
 }
 
-trait ScalaVelocityEngine extends VelocityEngine
+trait ScalaVelocityEngine extends VelocityEngine {
+  prependScalaUberspectIfNeeded()
+
+  protected def prependScalaUberspectIfNeeded(): Unit =
+    getProperty(RuntimeConstants.UBERSPECT_CLASSNAME) match {
+      case null =>
+        setProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
+      case name: String if name == classOf[ScalaUberspect].getName =>
+      case name: String =>
+        // prepend ScalaUberspect
+        setProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
+        addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, name)
+      case uberspectClassNames: java.util.List[_] if uberspectClassNames.asScala.contains(classOf[ScalaUberspect].getName.asInstanceOf[Any]) =>
+      case uberspectClassNames: java.util.List[_] =>
+        // prepend ScalaUberspect
+        setProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
+        uberspectClassNames.asScala.foreach(name => addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, name))
+    }
+}
 
 private[velocity4s] class ScalaSimplyVelocityEngine extends VelocityEngine
-    with ScalaVelocityEngine {
-  addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
-}
+  with ScalaVelocityEngine
 
 private[velocity4s] class ScalaPropertiesVelocityEngine(p: java.util.Properties) extends VelocityEngine(p)
-    with ScalaVelocityEngine {
-
-  p.getProperty(RuntimeConstants.UBERSPECT_CLASSNAME) match {
-    case null =>
-      addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
-    case uberspectClassNames if uberspectClassNames.contains(classOf[ScalaUberspect].getName) =>
-    case uberspectClassNames =>
-      addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
-  }
-}
+  with ScalaVelocityEngine
 
 private[velocity4s] class ScalaPropertiesFileNameVelocityEngine(propsFilename: String) extends VelocityEngine(propsFilename)
-    with ScalaVelocityEngine {
-  addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
-}
+  with ScalaVelocityEngine
