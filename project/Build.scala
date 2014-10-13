@@ -56,10 +56,10 @@ object Velocity4s extends Build {
   import Dependencies._
 
   lazy val root =
-    Project("velocity4s-parent",
+    Project("root",
             file("."),
             settings = appSettings
-    ).aggregate(velocity4s, velocity4sSlf4j, velocity4sJBossLogging)
+    ).aggregate(velocity4s, slf4j, jbossLogging)
 
   lazy val velocity4s =
     Project("velocity4s",
@@ -70,9 +70,9 @@ object Velocity4s extends Build {
               ++ appDependencyGraphSettings
     )
 
-  lazy val velocity4sSlf4j =
-    Project("velocity4s-slf4j",
-            file("velocity4s-slf4j"),
+  lazy val slf4j =
+    Project("slf4j",
+            file("slf4j"),
             settings = appSettings
                       ++ Seq(libraryDependencies ++= compileLibraries ++ Seq(
                         "org.slf4j" % "slf4j-api" % "1.7.7"
@@ -81,9 +81,9 @@ object Velocity4s extends Build {
               ++ appDependencyGraphSettings
     ).dependsOn(velocity4s)
 
-  lazy val velocity4sJBossLogging =
-    Project("velocity4s-jboss-logging",
-            file("velocity4s-jboss-logging"),
+  lazy val jbossLogging =
+    Project("jboss-logging",
+            file("jboss-logging"),
             settings = appSettings
                       ++ Seq(libraryDependencies ++= compileLibraries ++ Seq(
                         "org.jboss.logging" % "jboss-logging" % "3.1.4.GA"
