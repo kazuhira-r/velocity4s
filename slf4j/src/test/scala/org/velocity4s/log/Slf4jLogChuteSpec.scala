@@ -5,12 +5,88 @@ import org.apache.velocity.runtime.log.LogChute
 import org.slf4j.Logger
 
 import org.scalatest.FunSpec
+import org.scalatest.Matchers._
 import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
 import org.mockito.internal.util.reflection.Whitebox
 
 class Slf4jLogChuteSpec extends FunSpec with MockitoSugar {
   describe("Slf4jLogChute Spec") {
+    it("debug enabled") {
+      val mockLogger = mock[Logger]
+
+      val slf4jLogChute = new Slf4jLogChute
+      Whitebox.setInternalState(slf4jLogChute, "logger", mockLogger)
+
+      when(mockLogger.isDebugEnabled).thenReturn(true)
+      when(mockLogger.isTraceEnabled).thenReturn(false)
+      when(mockLogger.isInfoEnabled).thenReturn(false)
+      when(mockLogger.isWarnEnabled).thenReturn(false)
+      when(mockLogger.isErrorEnabled).thenReturn(false)
+
+      slf4jLogChute.isLevelEnabled(LogChute.DEBUG_ID) should be (true)
+    }
+
+    it("trace enabled") {
+      val mockLogger = mock[Logger]
+
+      val slf4jLogChute = new Slf4jLogChute
+      Whitebox.setInternalState(slf4jLogChute, "logger", mockLogger)
+
+      when(mockLogger.isDebugEnabled).thenReturn(false)
+      when(mockLogger.isTraceEnabled).thenReturn(true)
+      when(mockLogger.isInfoEnabled).thenReturn(false)
+      when(mockLogger.isWarnEnabled).thenReturn(false)
+      when(mockLogger.isErrorEnabled).thenReturn(false)
+
+      slf4jLogChute.isLevelEnabled(LogChute.TRACE_ID) should be (true)
+    }
+
+    it("info enabled") {
+      val mockLogger = mock[Logger]
+
+      val slf4jLogChute = new Slf4jLogChute
+      Whitebox.setInternalState(slf4jLogChute, "logger", mockLogger)
+
+      when(mockLogger.isDebugEnabled).thenReturn(false)
+      when(mockLogger.isTraceEnabled).thenReturn(false)
+      when(mockLogger.isInfoEnabled).thenReturn(true)
+      when(mockLogger.isWarnEnabled).thenReturn(false)
+      when(mockLogger.isErrorEnabled).thenReturn(false)
+
+      slf4jLogChute.isLevelEnabled(LogChute.INFO_ID) should be (true)
+    }
+
+    it("warn enabled") {
+      val mockLogger = mock[Logger]
+
+      val slf4jLogChute = new Slf4jLogChute
+      Whitebox.setInternalState(slf4jLogChute, "logger", mockLogger)
+
+      when(mockLogger.isDebugEnabled).thenReturn(false)
+      when(mockLogger.isTraceEnabled).thenReturn(false)
+      when(mockLogger.isInfoEnabled).thenReturn(false)
+      when(mockLogger.isWarnEnabled).thenReturn(true)
+      when(mockLogger.isErrorEnabled).thenReturn(false)
+
+      slf4jLogChute.isLevelEnabled(LogChute.WARN_ID) should be (true)
+    }
+
+    it("error enabled") {
+      val mockLogger = mock[Logger]
+
+      val slf4jLogChute = new Slf4jLogChute
+      Whitebox.setInternalState(slf4jLogChute, "logger", mockLogger)
+
+      when(mockLogger.isDebugEnabled).thenReturn(false)
+      when(mockLogger.isTraceEnabled).thenReturn(false)
+      when(mockLogger.isInfoEnabled).thenReturn(false)
+      when(mockLogger.isWarnEnabled).thenReturn(false)
+      when(mockLogger.isErrorEnabled).thenReturn(true)
+
+      slf4jLogChute.isLevelEnabled(LogChute.ERROR_ID) should be (true)
+    }
+
     it("log message") {
       val mockLogger = mock[Logger]
 
