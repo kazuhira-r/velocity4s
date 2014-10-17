@@ -12,7 +12,7 @@ object BuildSettings {
   val appPrimaryScalaVersion = "2.11.2"
   val appSecondaryScalaVersion = "2.10.4"
 
-  val appScalacOptions = Seq("-Xlint", "-deprecation", "-unchecked", "-feature")
+  val appScalacOptions = Seq("-encoding", "UTF-8", "-target:jvm-1.7", "-Xlint", "-deprecation", "-unchecked", "-feature", "-Xlog-reflective-calls")
   val appJavacOptions = Seq("-source", "1.7", "-target", "1.7")
 
   val appDescription = "Apache Velocity Wrapper Library for Scala"
