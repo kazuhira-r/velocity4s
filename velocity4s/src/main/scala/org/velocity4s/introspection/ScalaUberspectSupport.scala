@@ -4,9 +4,9 @@ import scala.collection.JavaConverters._
 
 import java.lang.reflect.Method
 
-import org.velocity4s.parser.node.{ ScalaMapGetExecutor, ScalaOptionGetExecutor, ScalaPropertyExecutor }
-
 import org.apache.velocity.util.introspection.{ Info, UberspectImpl, VelMethod, VelPropertyGet }
+
+import org.velocity4s.parser.node.{ ScalaMapGetExecutor, ScalaOptionGetExecutor, ScalaPropertyExecutor }
 
 object ScalaUberspectSupport {
   private val GET_METHOD_NAME = "get"
@@ -27,24 +27,26 @@ abstract class ScalaUberspectSupport extends UberspectImpl {
       case (_: Option[_], ScalaUberspectSupport.GET_METHOD_NAME) if args.size == 0 =>
         val method = introspector.getMethod(obj.getClass, methodName, args)
 
-        if (method != null)
-          new RewriteVelMethod(method, (o, params) => {
-            o.asInstanceOf[Option[AnyRef]].getOrElse(null)
-          })
-        else
-          super.getMethod(obj, methodName, args, i)
+        Option(method)
+          .map { m =>
+            new RewriteVelMethod(m, (o, params) => {
+              o.asInstanceOf[Option[AnyRef]].getOrElse(null)
+            })
+          }.getOrElse(super.getMethod(obj, methodName, args, i))
+
       case (_: Seq[_], ScalaUberspectSupport.GET_METHOD_NAME) if args.size == 1 =>
         super.getMethod(obj, "apply", args, i)
+
       case (_: scala.collection.Map[_, _], ScalaUberspectSupport.GET_METHOD_NAME) if args.size == 1 =>
         val method = introspector.getMethod(obj.getClass, methodName, args)
 
-        if (method != null) {
-          new RewriteVelMethod(method, (o, params) => {
-            o.asInstanceOf[scala.collection.Map[AnyRef, AnyRef]].getOrElse(params(0), null)
-          })
-        } else {
-          super.getMethod(obj, methodName, args, i)
-        }
+        Option(method)
+          .map { _ =>
+            new RewriteVelMethod(method, (o, params) => {
+              o.asInstanceOf[scala.collection.Map[AnyRef, AnyRef]].getOrElse(params(0), null)
+            })
+          }.getOrElse(super.getMethod(obj, methodName, args, i))
+
       case _ =>
         super.getMethod(obj, methodName, args, i)
     }
@@ -59,10 +61,9 @@ abstract class ScalaUberspectSupport extends UberspectImpl {
         case _ =>
           new ScalaPropertyExecutor(log, introspector, obj.getClass, identifier)
       }.map { executor =>
-        if (executor.isAlive) {
+        if (executor.isAlive)
           new UberspectImpl.VelGetterImpl(executor)
-        } else {
+        else
           super.getPropertyGet(obj, identifier, i)
-        }
-      }.getOrElse(null)
+      }.orNull[VelPropertyGet]
 }

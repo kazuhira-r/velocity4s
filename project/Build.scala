@@ -9,10 +9,10 @@ object BuildSettings {
   val appOrganization = "com.github.kazuhira-r"
   val appVersion = "0.0.1-SNAPSHOT"
 
-  val appPrimaryScalaVersion = "2.11.3"
+  val appPrimaryScalaVersion = "2.11.2"
   val appSecondaryScalaVersion = "2.10.4"
 
-  val appScalacOptions = Seq("-Xlint", "-deprecation", "-unchecked", "-feature")
+  val appScalacOptions = Seq("-encoding", "UTF-8", "-target:jvm-1.7", "-Xlint", "-deprecation", "-unchecked", "-feature", "-Xlog-reflective-calls")
   val appJavacOptions = Seq("-source", "1.7", "-target", "1.7")
 
   val appDescription = "Apache Velocity Wrapper Library for Scala"
@@ -25,7 +25,8 @@ object BuildSettings {
     scalacOptions ++= appScalacOptions,
     javacOptions ++= appJavacOptions,
     startYear := Some(2014),
-    incOptions := incOptions.value.withNameHashing(true)
+    incOptions := incOptions.value.withNameHashing(true),
+    licenses := Seq(("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0")))
   )
 
   val appDependencyGraphSettings = net.virtualvoid.sbt.graph.Plugin.graphSettings

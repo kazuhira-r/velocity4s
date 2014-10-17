@@ -15,7 +15,7 @@ class Slf4jLogChute extends LogChute {
 
   override def init(rs: RuntimeServices): Unit = {
     val name =
-      Option(rs.getProperty(Slf4jLogChute.LOGCHUTE_SLF4J_NAME.asInstanceOf[String]))
+      Option(rs.getProperty(Slf4jLogChute.LOGCHUTE_SLF4J_NAME))
         .getOrElse(Slf4jLogChute.DEFAULT_LOG_NAME)
 
     logger = LoggerFactory.getLogger(name.toString)
@@ -34,8 +34,8 @@ class Slf4jLogChute extends LogChute {
 
   override def log(level: Int, message: String): Unit =
     level match {
-      case LogChute.INFO_ID      => logger.info(message)
       case LogChute.TRACE_ID     => logger.trace(message)
+      case LogChute.INFO_ID      => logger.info(message)
       case LogChute.WARN_ID      => logger.warn(message)
       case LogChute.ERROR_ID     => logger.error(message)
       case LogChute.DEBUG_ID | _ => logger.debug(message)
@@ -43,8 +43,8 @@ class Slf4jLogChute extends LogChute {
 
   override def log(level: Int, message: String, t: Throwable): Unit =
     level match {
-      case LogChute.INFO_ID      => logger.info(message, t)
       case LogChute.TRACE_ID     => logger.trace(message, t)
+      case LogChute.INFO_ID      => logger.info(message, t)
       case LogChute.WARN_ID      => logger.warn(message, t)
       case LogChute.ERROR_ID     => logger.error(message, t)
       case LogChute.DEBUG_ID | _ => logger.debug(message, t)
