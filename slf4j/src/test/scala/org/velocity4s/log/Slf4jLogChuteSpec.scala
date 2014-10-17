@@ -1,7 +1,6 @@
 package org.velocity4s.log
 
 import org.apache.velocity.runtime.log.LogChute
-
 import org.slf4j.Logger
 
 import org.scalatest.FunSpec
