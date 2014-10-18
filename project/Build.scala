@@ -26,7 +26,7 @@ object BuildSettings {
     javacOptions ++= appJavacOptions,
     startYear := Some(2014),
     incOptions := incOptions.value.withNameHashing(true),
-    licenses := Seq(("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0")))
+    licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
   )
 
   val appDependencyGraphSettings = net.virtualvoid.sbt.graph.Plugin.graphSettings
