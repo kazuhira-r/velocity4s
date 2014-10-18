@@ -24,11 +24,13 @@ trait ScalaVelocityEngine extends VelocityEngine {
       case null =>
         setProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
       case name: String if name == classOf[ScalaUberspect].getName =>
+      // NOOP
       case name: String =>
         // prepend ScalaUberspect
         setProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
         addProperty(RuntimeConstants.UBERSPECT_CLASSNAME, name)
       case uberspectClassNames: java.util.List[_] if uberspectClassNames.asScala.contains(classOf[ScalaUberspect].getName.asInstanceOf[Any]) =>
+      // NOOP
       case uberspectClassNames: java.util.List[_] =>
         // prepend ScalaUberspect
         setProperty(RuntimeConstants.UBERSPECT_CLASSNAME, classOf[ScalaUberspect].getName)
