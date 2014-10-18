@@ -50,6 +50,14 @@ object Dependencies {
     "org.scalatest" %% "scalatest" % "2.2.2" % "test",
     "org.mockito" % "mockito-core" % "1.10.8" % "test"
   )
+
+  val slf4jLibraries = Seq(
+    "org.slf4j" % "slf4j-api" % "1.7.7"
+  )
+
+  val jbossLoggingLibraries = Seq(
+    "org.jboss.logging" % "jboss-logging" % "3.1.4.GA"
+  )
 }
 
 object Velocity4s extends Build {
@@ -66,7 +74,8 @@ object Velocity4s extends Build {
     Project("velocity4s",
             file("velocity4s"),
             settings = appSettings
-              ++ Seq(libraryDependencies ++= compileLibraries ++ testLibraries)
+              ++ Seq(libraryDependencies ++= compileLibraries
+                ++ testLibraries)
               ++ appScalariformSettings
               ++ appDependencyGraphSettings
     )
@@ -75,9 +84,9 @@ object Velocity4s extends Build {
     Project("slf4j",
             file("slf4j"),
             settings = appSettings
-                      ++ Seq(libraryDependencies ++= compileLibraries ++ Seq(
-                        "org.slf4j" % "slf4j-api" % "1.7.7"
-                      ) ++ testLibraries)
+              ++ Seq(libraryDependencies ++= compileLibraries
+                ++ slf4jLibraries
+                ++ testLibraries)
               ++ appScalariformSettings
               ++ appDependencyGraphSettings
     ).dependsOn(velocity4s)
@@ -86,9 +95,9 @@ object Velocity4s extends Build {
     Project("jboss-logging",
             file("jboss-logging"),
             settings = appSettings
-                      ++ Seq(libraryDependencies ++= compileLibraries ++ Seq(
-                        "org.jboss.logging" % "jboss-logging" % "3.1.4.GA"
-                      ) ++ testLibraries)
+              ++ Seq(libraryDependencies ++= compileLibraries
+                ++ jbossLoggingLibraries
+                ++ testLibraries)
               ++ appScalariformSettings
               ++ appDependencyGraphSettings
     ).dependsOn(velocity4s)
