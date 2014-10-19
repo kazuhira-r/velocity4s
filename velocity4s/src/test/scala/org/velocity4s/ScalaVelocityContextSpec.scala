@@ -26,59 +26,59 @@ class ScalaVelocityContextSpec extends FunSpec {
   }
 
   describe("Scala friendly method Spec") {
-    it("plus") {
+    it("+=") {
       val context = ScalaVelocityContext.empty
-      context + ("key1" -> "value1")
-      context + ("key2" -> "value2")
+      context += ("key1" -> "value1")
+      context += ("key2" -> "value2")
 
       context.get("key1") should be ("value1")
       context.get("key2") should be ("value2")
     }
 
-    it("plusplus varargs") {
-      val context = ScalaVelocityContext.empty ++ ("key1" -> "value1", "key2" -> "value2")
+    it("+= varargs") {
+      val context = ScalaVelocityContext.empty += ("key1" -> "value1", "key2" -> "value2")
 
       context.get("key1") should be ("value1")
       context.get("key2") should be ("value2")
     }
 
-    it("plusplus Map") {
-      val context = ScalaVelocityContext.empty ++ Map("key1" -> "value1", "key2" -> "value2")
+    it("++= Map") {
+      val context = ScalaVelocityContext.empty ++= Map("key1" -> "value1", "key2" -> "value2")
 
       context.get("key1") should be ("value1")
       context.get("key2") should be ("value2")
     }
 
-    it("plusplus List") {
-      val context = ScalaVelocityContext.empty ++ List("key1" -> "value1", "key2" -> "value2")
+    it("++= List") {
+      val context = ScalaVelocityContext.empty ++= List("key1" -> "value1", "key2" -> "value2")
 
       context.get("key1") should be ("value1")
       context.get("key2") should be ("value2")
     }
 
-    it("minus") {
+    it("-=") {
       val context = ScalaVelocityContext("key1" -> "value1", "key2" -> "value2")
 
-      context - "key2"
+      context -= "key2"
 
       context.get("key1") should be ("value1")
       context.get("key2") should be (null)
     }
 
-    it("minusminus varargs") {
+    it("-= varargs") {
       val context = ScalaVelocityContext("key1" -> "value1", "key2" -> "value2", "key3" -> "value3")
 
-      context -- ("key2", "key3")
+      context -= ("key2", "key3")
 
       context.get("key1") should be ("value1")
       context.get("key2") should be (null)
       context.get("key3") should be (null)
     }
 
-    it("minusminus List") {
+    it("--= List") {
       val context = ScalaVelocityContext("key1" -> "value1", "key2" -> "value2", "key3" -> "value3")
 
-      context -- List("key2", "key3")
+      context --= List("key2", "key3")
 
       context.get("key1") should be ("value1")
       context.get("key2") should be (null)

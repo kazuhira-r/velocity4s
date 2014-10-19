@@ -32,7 +32,7 @@ class ScalaVelocityContext protected (context: java.util.Map[String, AnyRef], in
   override def clone: AnyRef =
     try {
       val c = super.clone.asInstanceOf[ScalaVelocityContext]
-      keys.foreach { key => c + (key -> get(key)) }
+      keys.foreach { key => c += (key -> get(key)) }
       c
     } catch {
       case ignored: CloneNotSupportedException =>
