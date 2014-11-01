@@ -9,7 +9,7 @@ object BuildSettings {
   val appOrganization = "com.github.kazuhira-r"
   val appVersion = "0.0.1-SNAPSHOT"
 
-  val appPrimaryScalaVersion = "2.11.2"
+  val appPrimaryScalaVersion = "2.11.4"
   val appSecondaryScalaVersion = "2.10.4"
 
   val appScalacOptions = Seq("-encoding", "UTF-8", "-target:jvm-1.7", "-Xlint", "-deprecation", "-unchecked", "-feature", "-Xlog-reflective-calls")
