@@ -13,7 +13,34 @@ object ScalaVelocityEngine {
     new ScalaPropertiesVelocityEngine(properties)
 
   def create(propertiesFileName: String): ScalaVelocityEngine =
-    new ScalaPropertiesFileNameVelocityEngine(propertiesFileName)
+    PropertiesLoader.load(propertiesFileName) match {
+      case Some(properties) => new ScalaPropertiesVelocityEngine(properties)
+      case None             => new ScalaPropertiesFileNameVelocityEngine(propertiesFileName)
+    }
+
+  def build: ScalaVelocityEngine = {
+    val velocity = create
+    velocity.init()
+    velocity
+  }
+
+  def build(properties: (String, Any)*): ScalaVelocityEngine = {
+    val velocity = create
+
+    properties.foreach { case (k, v) => velocity.setProperty(k, v) }
+
+    velocity.init()
+    velocity
+  }
+
+  def build(propertiesFileName: String, properties: (String, Any)*): ScalaVelocityEngine = {
+    val velocity = create(propertiesFileName)
+
+    properties.foreach { case (k, v) => velocity.setProperty(k, v) }
+
+    velocity.init()
+    velocity
+  }
 }
 
 trait ScalaVelocityEngine extends VelocityEngine {

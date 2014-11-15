@@ -9,7 +9,7 @@ object BuildSettings {
   val appOrganization = "com.github.kazuhira-r"
   val appVersion = "0.0.1-SNAPSHOT"
 
-  val appPrimaryScalaVersion = "2.11.2"
+  val appPrimaryScalaVersion = "2.11.4"
   val appSecondaryScalaVersion = "2.10.4"
 
   val appScalacOptions = Seq("-encoding", "UTF-8", "-target:jvm-1.7", "-Xlint", "-deprecation", "-unchecked", "-feature", "-Xlog-reflective-calls")
@@ -45,7 +45,7 @@ object Dependencies {
   val compileLibraries = Seq(
     "org.apache.velocity" % "velocity" % "1.7" % "compile",
     "org.slf4j" % "slf4j-api" % "1.7.7" % "provided",
-    "org.jboss.logging" % "jboss-logging" % "3.1.4.GA" % "provided",
+    "org.jboss.logging" % "jboss-logging" % "3.2.0.Final" % "provided",
     "org.apache.logging.log4j" % "log4j-api" % "2.1" % "provided"
   )
 
