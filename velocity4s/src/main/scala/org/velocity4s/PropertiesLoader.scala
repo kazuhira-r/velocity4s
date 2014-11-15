@@ -1,6 +1,6 @@
 package org.velocity4s
 
-object PropertiesLoader {
+private[velocity4s] object PropertiesLoader {
   def load(propertiesFileName: String): Option[java.util.Properties] = {
     val classLoaders =
       Array(getClass.getClassLoader,
