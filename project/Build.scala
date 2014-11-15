@@ -45,7 +45,7 @@ object Dependencies {
   val compileLibraries = Seq(
     "org.apache.velocity" % "velocity" % "1.7" % "compile",
     "org.slf4j" % "slf4j-api" % "1.7.7" % "provided",
-    "org.jboss.logging" % "jboss-logging" % "3.1.4.GA" % "provided",
+    "org.jboss.logging" % "jboss-logging" % "3.2.0.Final" % "provided",
     "org.apache.logging.log4j" % "log4j-api" % "2.1" % "provided"
   )
 
