@@ -25,7 +25,8 @@ object BuildSettings {
     scalacOptions ++= appScalacOptions,
     javacOptions ++= appJavacOptions,
     startYear := Some(2014),
-    incOptions := incOptions.value.withNameHashing(true),
+    incOptions := incOptions.value.withNameHashing(true),  // Default true
+    updateOptions := updateOptions.value.withCachedResolution(true),
     licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
   )
 
