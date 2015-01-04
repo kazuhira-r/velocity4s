@@ -45,14 +45,14 @@ object BuildSettings {
 object Dependencies {
   val compileLibraries = Seq(
     "org.apache.velocity" % "velocity" % "1.7" % "compile",
-    "org.slf4j" % "slf4j-api" % "1.7.7" % "provided",
+    "org.slf4j" % "slf4j-api" % "1.7.9" % "provided",
     "org.jboss.logging" % "jboss-logging" % "3.2.0.Final" % "provided",
     "org.apache.logging.log4j" % "log4j-api" % "2.1" % "provided"
   )
 
   val testLibraries = Seq(
-    "org.scalatest" %% "scalatest" % "2.2.2" % "test",
-    "org.mockito" % "mockito-core" % "1.10.8" % "test"
+    "org.scalatest" %% "scalatest" % "2.2.3" % "test",
+    "org.mockito" % "mockito-core" % "1.10.19" % "test"
   )
 }
 
