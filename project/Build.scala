@@ -51,7 +51,7 @@ object Dependencies {
   )
 
   val testLibraries = Seq(
-    "org.scalatest" %% "scalatest" % "2.2.3" % "test",
+    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
     "org.mockito" % "mockito-core" % "1.10.19" % "test"
   )
 }
