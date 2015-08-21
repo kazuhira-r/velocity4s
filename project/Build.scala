@@ -9,7 +9,7 @@ object BuildSettings {
   val appOrganization = "com.github.kazuhira-r"
   val appVersion = "0.0.1-SNAPSHOT"
 
-  val appPrimaryScalaVersion = "2.11.6"
+  val appPrimaryScalaVersion = "2.11.7"
   val appSecondaryScalaVersion = "2.10.5"
 
   val appScalacOptions = Seq("-encoding", "UTF-8", "-target:jvm-1.7", "-Xlint", "-deprecation", "-unchecked", "-feature", "-Xlog-reflective-calls")
@@ -45,13 +45,13 @@ object BuildSettings {
 object Dependencies {
   val compileLibraries = Seq(
     "org.apache.velocity" % "velocity" % "1.7" % "compile",
-    "org.slf4j" % "slf4j-api" % "1.7.10" % "provided",
-    "org.jboss.logging" % "jboss-logging" % "3.2.1.Final" % "provided",
-    "org.apache.logging.log4j" % "log4j-api" % "2.2" % "provided"
+    "org.slf4j" % "slf4j-api" % "1.7.12" % "provided",
+    "org.jboss.logging" % "jboss-logging" % "3.3.0.Final" % "provided",
+    "org.apache.logging.log4j" % "log4j-api" % "2.3" % "provided"
   )
 
   val testLibraries = Seq(
-    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+    "org.scalatest" %% "scalatest" % "2.2.5" % "test",
     "org.mockito" % "mockito-core" % "1.10.19" % "test"
   )
 }
